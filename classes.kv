@@ -1,0 +1,107 @@
+#: import platform kivy.utils.platform
+#: import window kivy.core.window.Window
+#: import XCamera kivy_garden.xcamera.XCamera
+#: import Clock kivy.clock.Clock
+#: import AKSpinnerDoubleBounce Modules.spinners.AKSpinnerDoubleBounce
+#: import CustomTextField Modules.textfield.CustomTextField
+#: import md_icons kivymd.icon_definitions.md_icons
+<MyImage>:
+    index: root.index
+    bg_color: root.bg_color
+    canvas:
+        Color:
+            rgba: self.bg_color
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+    on_press:
+        checkbox.active= False if checkbox.disabled or checkbox.active else True
+    on_release:
+        app.image_clicked(self) if checkbox.disabled and not app.ignore_release else ''
+        app.ignore_release=False
+    MDCheckbox:
+        id: checkbox
+        disabled:True
+        on_active: root.check_box_state=self.active
+        disabled_color:[0,0,0,0]
+        selected_color:[1,1,0,1]
+        checkbox_icon_normal : "checkbox-blank-circle-outline"
+        checkbox_icon_down: 'checkbox-marked-circle'
+        size_hint: None,None
+        size: "0dp", "0dp"
+        pos_hint:{'right':1-dp(48)/Window.size[0],'top':1-dp(48)/Window.size[0]}
+
+<CustomCircle>
+    canvas:
+        Color:
+            rgba: root.set_color
+        Ellipse:
+            size: dp(self.rad),dp(self.rad)
+            pos:(-dp(self.rad)/2+self.widget_pos/2,-dp(self.rad)/2+self.widget_pos/2)
+    rad : 80
+    set_color: [0,0,0,1]
+    halign:'right'
+    size_hint_x:.3
+    widget_pos: root.widget_pos
+    opacity:root.opacity
+
+<CircleMode@Widget>
+    rad : 80
+    set_color: [0,0,0,1]
+    parent_rad: 20
+    opacity:root.opacity
+    canvas:
+        Color:
+            rgba: app.theme_cls.opposite_bg_normal
+        Ellipse:
+            size: 2*self.rad,2*self.rad
+            pos: (self.x + self.parent_rad - self.rad , self.y + self.parent_rad - self.rad)
+
+<CustomMDSpinner>:
+
+    auto_dismiss: False
+    background_color: 0, 0, 0, 0
+    FloatLayout:
+        MDSpinner:
+            size: dp(45), dp(45)
+            pos_hint: {'center_x': .5, 'center_y': .5}
+            size_hint: (None, None)
+            active: True
+            palette:[0, 0.3, 1, 1], [0.62, 0, 1, 1], [256 / 256, 87 / 256, 34 / 256, 1], [255 / 256, 0, 76 / 256, 1]
+
+<AboutClass@BoxLayout>
+    orientation:'vertical'
+    MDLabel:
+        text:'Made by Ashutosh'
+        halign:'center'
+        font_size:'20sp'
+        theme_text_color:'Custom'
+        text_color: app.theme_cls.primary_color
+        font_name:'Poppins'
+    MDSeparator:
+    MDTextButton:
+        size_hint_y:.5
+        markup: True
+        font_size:'16sp'
+        text:f"[color=#6666ff][font=Icons][size={int(self.font_size)+10}] {md_icons['github']}[/font][/size]   GitHub Profile[/color]"
+        pos_hint:{'center_x':.5,'center_y':1}
+        on_release:
+            app.open_web(github=True)
+    MDSeparator:
+    MDTextButton:
+        size_hint_y:.5
+        markup: True
+        font_size:'16sp'
+        text:f"[color=#de6666][font=Icons][size={int(self.font_size)+10}] {md_icons['gmail']}[/font][/size]   Send email[/color]"
+        pos_hint:{'center_x':.5,'center_y':1}
+        on_release:
+            app.open_web(email=True)
+
+
+
+
+
+
+
+
