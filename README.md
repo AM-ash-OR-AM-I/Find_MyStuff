@@ -14,6 +14,9 @@ https://youtu.be/l2OCr50ifIw
 ### Screenshots AND Video
 https://user-images.githubusercontent.com/59698257/125425166-1a1c6ed3-3340-48c3-99ea-6e38d12ad336.mp4
 
+# Download For Android 
+https://github.com/AM-ash-OR-AM-I/Find_MyStuff/releases/download/0.2/com.FindMyStuff-0.2-armeabi-v7a-debug.apk
+
 # Installation for Windows
 * Install all files from requirements_for_win.txt using pip
 * Then use 
@@ -24,5 +27,4 @@ pipwin install pyaudio
 # Installation for Linux
 * Should work by simply using `pip install PyAudio`
 * Not tested yet
-# Download For Android 
-https://github.com/AM-ash-OR-AM-I/Find_MyStuff/releases/download/0.2/com.FindMyStuff-0.2-armeabi-v7a-debug.apk
+
