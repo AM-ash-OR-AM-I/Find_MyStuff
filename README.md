@@ -1,6 +1,5 @@
 ![GitHub_Logo_256](https://user-images.githubusercontent.com/59698257/125396358-0e6f3480-e3ca-11eb-932b-c5b4f675982b.png)
-
-![Github_Logo](https://user-images.githubusercontent.com/59698257/125396173-d2d46a80-e3c9-11eb-8111-4e7259d89509.png)
+![Github_README](https://user-images.githubusercontent.com/59698257/125396707-83db0500-e3ca-11eb-8eda-c30297c2d38e.png)
 
 
 
