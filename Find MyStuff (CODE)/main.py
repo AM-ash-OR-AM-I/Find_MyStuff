@@ -441,11 +441,16 @@ class MainApp(MDApp):
 
     def open_web(self,github=False,youtube=False,email=False):
         if github:
-            webbrowser.open('https://github.com/AM-ash-OR-AM-I')
+            webbrowser.open('https://github.com/AM-ash-OR-AM-I/Find_MyStuff')
+            toast('Star my repository if you like it :)')
+            
         elif youtube:
             webbrowser.open('https://youtu.be/l2OCr50ifIw')
+            
         elif email:
             webbrowser.open('https://mail.google.com/mail/u/0/#inbox?compose=new')
+            Clipboard.copy('ashutoshmaha2909@gmail.com')
+            toast('Email address Copied, Paste Email address to send email.')
 
     def shift_up(self, active):
         textbox = self.HomeScreen.ids.textbox
