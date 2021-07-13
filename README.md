@@ -3,7 +3,8 @@
 
 
 # Find MyStuff
-This is Application made to find where you have kept your stuff.
+This is an Android Application to find where you have kept your stuff.
+* [Made using Python, Kivy & KivyMD]
 # Demo
 https://youtu.be/l2OCr50ifIw
 # APK
