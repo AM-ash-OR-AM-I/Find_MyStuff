@@ -5,6 +5,10 @@
 # Find MyStuff
 This is an Android Application to find where you have kept your stuff.
 * Made using Python, Kivy & KivyMD
+## Features
+* Save Information about where you have kept your stuff using voice command.
+* Take picture of object and save it's info.
+* Find the object by using search bar
 # Demo
 https://youtu.be/l2OCr50ifIw
 # APK
