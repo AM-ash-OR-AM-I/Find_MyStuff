@@ -1,4 +1,5 @@
-![NEW_ICON_512](https://user-images.githubusercontent.com/59698257/125395779-3f029e80-e3c9-11eb-9300-e84e219a7979.png)
+![GitHub Logo_256](https://user-images.githubusercontent.com/59698257/125396067-a4568f80-e3c9-11eb-8a3a-0fbef18b5933.png)
+
 
 # Find MyStuff
 This is Application made to find where you have kept your stuff.
