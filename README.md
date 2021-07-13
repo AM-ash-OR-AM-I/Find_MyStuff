@@ -19,4 +19,4 @@ pip install pipwin
 pipwin install pyaudio
 ```
 # Release For Android 
-https://github.com/AM-ash-OR-AM-I/Find_MyStuff/releases/download/0.1/com.FindMyStuff-0.1-armeabi-v7a-debug.apk
+https://github.com/AM-ash-OR-AM-I/Find_MyStuff/releases/tag/0.2
