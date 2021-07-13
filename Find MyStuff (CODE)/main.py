@@ -299,7 +299,8 @@ class MainApp(MDApp):
 
     def reduce_preview_size(self):
         self.optimise = True
-        self.set_preview_index += 1
+        if self.preview_size[self.set_preview_index][1]> 480:
+            self.set_preview_index += 1
 
     def add_screens(self, *args):
 
@@ -346,11 +347,11 @@ class MainApp(MDApp):
                 if ANDROID: statusbar('5433fe', nav_color='white')
             self.start_call = False
             self.add_card()
-            if self.time_taken > 9.5 and self.show_optimise:
+            if self.time_taken > 4 and self.show_optimise:
                 if self.optimise:
                     self.reduce_preview_size()
                 else:
-                    if self.time_taken > 12:
+                    if self.time_taken > 5:
                         widget = self.HomeScreen.ids.grid_layout if self.InfoDict != {} else self.NoImage
                         self.banner = MDBanner(type='three-line',
                                                text=['[b]Decrease Loading Time',
