@@ -3,6 +3,7 @@ import pickle
 import random
 from time import time
 from PIL import Image
+from kivy.core.clipboard import Clipboard
 from kivy.graphics.context_instructions import PushMatrix, Rotate, PopMatrix
 from kivy.uix.image import Image as Kivy_Image
 from kivy.animation import Animation
@@ -153,7 +154,7 @@ class MyImage(SmartTileWithLabel, TouchBehavior, MagicBehavior):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        # print(" __init__ of My Image gets called ")
+        # #print(" __init__ of My Image gets called ")
         self.app = MDApp.get_running_app()
         self.light_color = self.app.generate_light_color(0.3)
         self.image_list = self.app.HomeScreen.ids.grid_layout.children
@@ -185,7 +186,7 @@ class MyImage(SmartTileWithLabel, TouchBehavior, MagicBehavior):
     def on_check_box_state(self, obj, active):
         self.app.delete_dict[obj.source] = active
         self.app.toolbar_change = True
-        # print('<On_Check_box_event>')
+        # #print('<On_Check_box_event>')
         if active:
             self.shrink()
             self.bg_color = custom_light_color[self.theme_cls.primary_palette]
@@ -194,10 +195,10 @@ class MyImage(SmartTileWithLabel, TouchBehavior, MagicBehavior):
             self.bg_color = [0, 0, 0, 0]
 
         if True not in self.app.delete_dict.values():  # Deselecting everything
-            # print(f'{self.app.delete_dict.values() = }')
+            # #print(f'{self.app.delete_dict.values() = }')
             self.app.ignore_release = True
             self.app.toolbar_change = False
-            # print(f'{self.app.root.ids.setting.ids.switch_item= }')
+            # #print(f'{self.app.root.ids.setting.ids.switch_item= }')
             if self.app.prev_state:
                 self.app.show_text = True
             for image in self.image_list:
@@ -264,7 +265,7 @@ class MainApp(MDApp):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        # print('__init__ of MainAPP')
+        # #print('__init__ of MainAPP')
         if os.path.exists('Data/theme_details.txt'):
             with open('Data/theme_details.txt', 'r')as f:
                 string = f.read()
@@ -286,7 +287,7 @@ class MainApp(MDApp):
         else:
             self.theme_cls.primary_palette = 'Purple'
 
-        print(f'{self.InfoDict = }')
+        ##print(f'{self.InfoDict = }')
         self.drop = None
         self.extra_light_color = self.generate_light_color(0.1)
         self.light_color = self.generate_light_color(self.light_alpha)
@@ -328,7 +329,7 @@ class MainApp(MDApp):
                 self.camera = CameraScreen(name='camera')
                 sm.add_widget(self.camera)
             self.time_taken = time() - initial
-            print(f'{self.time_taken = }')
+            ##print(f'{self.time_taken = }')
             self.StartScreen.ids.progress_percent.anim_speed= .4
             self.StartScreen.ids.progress_percent.current_percent = 100
             if self.InfoDict != {}:
@@ -338,7 +339,7 @@ class MainApp(MDApp):
                 if ANDROID:
                     if not self.dark_mode:
                         statusbar(colors[self.theme_cls.primary_palette]['500'], nav_color='white')
-                    print(f'{self.dark_mode = }')
+                    ##print(f'{self.dark_mode = }')
                     self.start_call = False
 
             else:
@@ -384,7 +385,7 @@ class MainApp(MDApp):
         Builder.load_file('classes.kv')
         self.theme_cls.theme_style = 'Dark' if (self.InfoDict != {} and self.InfoDict[
             'DARK_MODE']) or SYSTEM_DARK_MODE else 'Light'
-        print(f'{self.theme_cls.theme_style = }')
+        #print(f'{self.theme_cls.theme_style = }')
         self.StartScreen = StartScreen()
         sm.add_widget(self.StartScreen)
         sm.transition = CardTransition(mode='push', direction="left", duration=.2)
@@ -405,7 +406,7 @@ class MainApp(MDApp):
     def set_mode(self):
 
         dark_mode = self.dark_mode
-        print(dark_mode)
+        #print(dark_mode)
         if dark_mode:
             statusbar(self.dark_hex, nav_color='black') if ANDROID else ''
             self.theme_cls.theme_style = 'Dark'
@@ -443,10 +444,8 @@ class MainApp(MDApp):
         if github:
             webbrowser.open('https://github.com/AM-ash-OR-AM-I/Find_MyStuff')
             toast('Star my repository if you like it :)')
-            
         elif youtube:
             webbrowser.open('https://youtu.be/l2OCr50ifIw')
-            
         elif email:
             webbrowser.open('https://mail.google.com/mail/u/0/#inbox?compose=new')
             Clipboard.copy('ashutoshmaha2909@gmail.com')
@@ -535,7 +534,7 @@ class MainApp(MDApp):
                     stt.stop()
                 self.checking_clock.cancel()
             Animation(rad=self.rad, opacity=0, duration=.1).start(self.widget)
-            print('animation cancelled')
+            #print('animation cancelled')
             MDApp.get_running_app().dialog.buttons[0].disabled = False
             self.listening = False
             self.animate.stop(self.widget)
@@ -550,7 +549,7 @@ class MainApp(MDApp):
 
                 if stt.listening:
                     stt.stop()
-                    # print('stt is started while it was listening stopping it...')
+                    # #print('stt is started while it was listening stopping it...')
                     return
                 stt.start()
                 self.stop = False
@@ -558,7 +557,7 @@ class MainApp(MDApp):
 
             elif WIN:
                 def voicethread():
-                    print('Voice Thread Starts')
+                    #print('Voice Thread Starts')
                     r = sr.Recognizer()
                     try:
                         self.win_listen = True
@@ -566,9 +565,9 @@ class MainApp(MDApp):
                             r.adjust_for_ambient_noise(source, duration=.5)
                             audio = r.listen(source, timeout=4)
 
-                        print('Stops Listening')
+                        #print('Stops Listening')
                         self.recognized_text = r.recognize_google(audio)
-                        print('Recognized audio', self.recognized_text)
+                        #print('Recognized audio', self.recognized_text)
                         self.win_listen = False
                         self.stop_listening()
                     except sr.UnknownValueError:
@@ -594,7 +593,7 @@ class MainApp(MDApp):
             self.ids.place.disabled = False
             self.stop_anim()
             if ANDROID:
-                print(f'{stt.results=}')
+                #print(f'{stt.results=}')
                 if stt.results != []:
                     self.recognized_text = stt.results[0]
                     self.ids.instant.text = self.recognized_text
@@ -605,7 +604,7 @@ class MainApp(MDApp):
                     toast("Can't Recognize speech")
                     threading.Thread(target=tts.speak, args=("Sorry Couldn't recognize",), daemon=True).start()
 
-            print(f'{self.recognized_text = }')
+            #print(f'{self.recognized_text = }')
             if self.recognized_text != '':
 
                 "Gets rid of part that serves no information."
@@ -623,14 +622,14 @@ class MainApp(MDApp):
                     self.object, self.place = '', ''
                     for prep in PREPOSITIONS:
                         if prep in word_list:
-                            print(f'{prep = }')
+                            #print(f'{prep = }')
                             ind = word_list.index(prep)
                             self.object = ' '.join(word_list[:ind])
                             self.place = ' '.join(word_list[ind + 1:])
                             break
                     if (self.object, self.place) != ('', ''):
                         separator = True
-                print(f'{(self.object, self.place) = }')
+                #print(f'{(self.object, self.place) = }')
 
                 if separator and not self.tell_place:
                     "If it is able to separate"
@@ -715,7 +714,7 @@ class MainApp(MDApp):
         self.theme_picker.open()
 
     def save_info(self):
-        print('Saving Stuff')
+        #print('Saving Stuff')
         self.InfoDict['PREVIEW_SIZE'] = self.avail_preview_size
         self.InfoDict['PREVIEW_INDEX'] = self.set_preview_index
         self.InfoDict['OPTIMISE'] = self.optimise
@@ -779,7 +778,7 @@ class MainApp(MDApp):
 
     def update_index(self, image):
         for index in range(len(self.list)):
-            # print(f'{image.source[:-4] = }, {self.list[index] = }\n{image.source[:-4] in self.list[index] =}')
+            # #print(f'{image.source[:-4] = }, {self.list[index] = }\n{image.source[:-4] in self.list[index] =}')
             if image.source[:-4] in self.list[index]:
                 image.index = index
                 break
@@ -799,16 +798,16 @@ class MainApp(MDApp):
         for d in self.list:
             if d != {}:
                 image_source = list(d.keys())[0] + '.png'
-                print(f'{self.list = }{self.delete_dict=}{d=}')
+                #print(f'{self.list = }{self.delete_dict=}{d=}')
                 if image_source in self.delete_dict:
 
                     if self.delete_dict[image_source]:
-                        # print('gets Deleted')
+                        # #print('gets Deleted')
                         if os.path.exists(image_source):
                             os.remove(image_source)  # Deletes the image file
                         del d[image_source[:-4]]
 
-        # # print(f'{c = }')
+        # # #print(f'{c = }')
         self.list.remove({})
         self.remove_tile()
         threading.Thread(target=self.write_file, args=(self,), daemon=True).start()
@@ -824,7 +823,7 @@ class MainApp(MDApp):
             if c == len(self.list):
                 self.image_exists = False
 
-        print(f'{self.list=}')
+        #print(f'{self.list=}')
 
     def write_file(self, *args):
         c = 0
@@ -835,7 +834,7 @@ class MainApp(MDApp):
                     pickle.dump(d, f)
 
     def on_toolbar_change(self, obj, delete=False):
-        print('Toolbar_changed', f'{delete = } , {obj = }')
+        #print('Toolbar_changed', f'{delete = } , {obj = }')
         toolbar = self.HomeScreen.ids.toolbar
         if delete:
             factor = .7 if not self.dark_mode else 1.5
@@ -876,11 +875,11 @@ class MainApp(MDApp):
         image_list = self.grid.children
         new_grid = int(x)
         if image_list[0].tile_text_color != [0, 0, 0, 0]:
-            # print('Changing text size')
+            # #print('Changing text size')
             prev_grid = self.grid.cols
             old_text_size = self.text_size
             self.text_size = old_text_size * prev_grid / new_grid
-            # print(f'{self.text_size = } , {old_text_size = }')
+            # #print(f'{self.text_size = } , {old_text_size = }')
 
             for im in image_list:
                 if im.tile_text_color != [0, 0, 0, 0]:
@@ -940,11 +939,11 @@ class MainApp(MDApp):
     def change_scale(self, scaling):
         image_list = self.grid.children
         if image_list[0].text != '':
-            # print('Changing text size')
+            # #print('Changing text size')
             old_text_size = self.text_size
             if self.prev_scale != scaling:
                 self.text_size = self.text_size * scaling / self.prev_scale
-                # print(f'{self.text_size = }')
+                # #print(f'{self.text_size = }')
                 for im in image_list:
                     if im.text != '':
                         text = im.text
@@ -1015,7 +1014,7 @@ class MainApp(MDApp):
     def on_image_exists(self, instance, exists):
         setting = self.SettingScreen
         right_items = self.HomeScreen.ids.toolbar.right_action_items
-        # print(f'{setting.ids.switch_item = }\n{exists = }')
+        # #print(f'{setting.ids.switch_item = }\n{exists = }')
 
         if not exists:
             self.HomeScreen.add_widget(self.NoImage)
@@ -1059,7 +1058,7 @@ class MainApp(MDApp):
                         for d in self.list:
                             pickle.dump(d, f)
                     return
-            # print('Stuff Updated')
+            # #print('Stuff Updated')
 
         threading.Thread(target=write_stuff, args=(object, place)).start()
 
@@ -1100,21 +1099,21 @@ class MainApp(MDApp):
             self.InfoScreen.ids.circle_bounce.active = False
             self.InfoScreen.ids.check.disabled = False
             self.InfoScreen.ids.im.opacity = 1
-            print('Image added')
+            #print('Image added')
 
         def rotate_resize():
             i = time()
             img = Image.open(self.filename)
             ratio = img.size[0] / img.size[1]
-            print(ratio)
+            #print(ratio)
             resize = img.resize((int(ratio * 900), 900))
             if not self.landscape:
                 rot_img = resize.transpose(Image.ROTATE_270)
-                print(f'{rot_img.size = }')
+                #print(f'{rot_img.size = }')
             else:
                 rot_img = resize
             rot_img.save(self.filename)
-            print(f'Time taken = {time() - i}')
+            #print(f'Time taken = {time() - i}')
             Clock.schedule_once(add_pic)
 
         self.InfoScreen.ids.im.opacity = 0
@@ -1149,7 +1148,7 @@ class MainApp(MDApp):
         sm.transition.direction = 'left'
         sm.current = screen_name
         self.screen_history.append(screen_name)
-        # print(self.screen_history)
+        # #print(self.screen_history)
 
     def go_back(self, instance, key, *a):
 
