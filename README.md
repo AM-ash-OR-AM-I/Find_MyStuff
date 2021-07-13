@@ -21,5 +21,5 @@ https://user-images.githubusercontent.com/59698257/125425166-1a1c6ed3-3340-48c3-
 pip install pipwin
 pipwin install pyaudio
 ```
-# Release For Android 
-https://github.com/AM-ash-OR-AM-I/Find_MyStuff/releases/tag/0.2
+# Download For Android 
+https://github.com/AM-ash-OR-AM-I/Find_MyStuff/releases/download/0.2/com.FindMyStuff-0.2-armeabi-v7a-debug.apk
