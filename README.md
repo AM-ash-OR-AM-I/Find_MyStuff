@@ -11,6 +11,10 @@ This is an Android Application to find where you have kept your stuff.
 * Find the object by using search bar
 ### Demo
 https://youtu.be/l2OCr50ifIw
+### Screenshots AND Video
+![image](https://user-images.githubusercontent.com/59698257/125425489-7f040dd2-a7fc-46ae-bfb3-68a6dbea7ec1.png)
+https://user-images.githubusercontent.com/59698257/125425166-1a1c6ed3-3340-48c3-99ea-6e38d12ad336.mp4
+
 # Installation
 * Install all files from requirements_for_win.txt using pip
 * Then use 
