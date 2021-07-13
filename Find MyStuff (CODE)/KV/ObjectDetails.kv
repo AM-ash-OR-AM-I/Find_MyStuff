@@ -1,0 +1,42 @@
+<ObjectInfo>:
+    md_bg_color:app.theme_cls.bg_normal
+    name:'ObjectInfo'
+
+    BoxLayout:
+        orientation:'vertical'
+        padding:(dp(20),dp(20),dp(20),dp(110))
+        spacing:"20dp"
+        pos_hint:{'top':1}
+
+        MDLabel:
+            id: heading
+            halign:'center'
+            font_name:'Poppins-Bold'
+            font_size: sp(25)
+            size_hint_y:0.35
+
+        CustomTextField:
+            id: place
+            hint_text:'Place Details'
+
+        RelativeLayout:
+            FitImage:
+                id: im
+                radius: [dp(20),dp(20),dp(20),dp(20)]
+
+            AKSpinnerDoubleBounce:
+                id: circle_bounce
+                spinner_size: dp(30)
+                center: im.center
+
+
+    FloatingButton:
+        id: check
+        icon:'check'
+        user_font_size:60
+        pos_hint:{'right':.9}
+        y: dp(20)
+        on_release:
+            app.HomeScreen.change_home=True
+            app.update_info(object=heading.text, place=place.text)
+            app.back_button(home_screen=True)

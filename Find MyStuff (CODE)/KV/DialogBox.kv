@@ -1,0 +1,42 @@
+<Voicereco>:
+    id: Record_dialog
+    orientation: "vertical"
+    size_hint_y: None
+    height: "300dp"
+    FloatingButton:
+        id: microphone
+        icon: 'microphone'
+        pos_hint:{'center_x':0.5}
+        user_font_size:80
+        md_bg_color: [0.5,0.5,0.5,1]
+        on_release:
+            root.start_listening() if not root.listening else None
+
+        RelativeLayout:
+            CustomCircle:
+                id: ellipse
+                opacity: 0
+                set_color: app.theme_cls.primary_color
+                rad: 80
+                widget_pos: self.parent.size[0]
+                halign:'left'
+    MDLabel:
+        id: instant
+        size_hint_y:0.2
+        halign:'center'
+        text:'Listening'
+        font_size:'15sp'
+        font_name:'Roboto-Bold'
+    CustomTextField:
+        id: object
+        hint_text:'Object'
+        disabled: True if platform=='android' else False
+        on_text:
+            app.dialog.buttons[1].disabled=False if self.text!='' and place.text!='' else True
+    CustomTextField:
+        id: place
+        hint_text: "Place"
+        disabled: True if platform=='android' else False
+        pos_hint:{'center_x':0.5,'center_y':0.3}
+        on_text:
+            app.dialog.buttons[1].disabled=False if self.text!='' and object.text!='' else True

@@ -1,0 +1,57 @@
+#: import Window kivy.core.window.Window
+#: import CardTextField Modules.CustomCard.CardTextField
+#: import get_color_from_hex kivy.properties.get_color_from_hex
+#: import colors kivymd.color_definitions.colors
+<HomeScreen>:
+    name:'HomeScreen'
+
+    MDBoxLayout:
+        md_bg_color:app.theme_cls.bg_normal
+        spacing:'5dp'
+        orientation:'vertical'
+
+        MDToolbar:
+            id: toolbar
+            title: "MyStuff"
+            elevation:12
+            pos_hint:{'top':1}
+            right_action_items:
+                [["view-grid",lambda x: app.call(x), "Change grid size"],['format-font-size-increase',lambda x:app.open_dropdown(x),'Change Image Text Size'],['cog',lambda x: app.change_screen('setting')]]
+
+        ScrollView:
+            MDGridLayout:
+                id: grid_layout
+                cols: app.n_col
+                col_default_width:self.row_default_height
+                row_default_height: (self.width - self.cols*self.spacing[0]) / self.cols
+                row_force_default: True
+                adaptive_height: True
+                spacing: dp(3)
+
+    MDBoxLayout:
+        id: textbox
+        padding:(dp(25),0,dp(25),dp(40))
+        height:text_field.height
+        spacing:'10dp'
+        icon:'plus'
+
+        CardTextField:
+            id: text_field
+            hint_text:'Search'
+            pos_hint:{'center_x':.5}
+            set_elevation:15
+            height:dp(60)
+            inactive_color: [.7,.7,.7,.15]
+            thickness:dp(1)
+            active_color:app.light_color
+            radius: '30dp'
+            size_hint_x:1
+        FloatingButton:
+            id: plus
+            icon: textbox.icon
+            pos_hint:{'center_x':0.5}
+            user_font_size:60
+            on_release:
+                app.open_dialog() if app.active else app.set_active()
+
+
