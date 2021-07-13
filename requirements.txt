@@ -1,0 +1,4 @@
+https://github.com/AM-ash-OR-AM-I/KivyMD-1/archive/refs/heads/master.zip
+Pillow
+PyAudio
+speech_recognition
