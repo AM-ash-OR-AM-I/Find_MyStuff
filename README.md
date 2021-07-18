@@ -16,6 +16,7 @@ https://user-images.githubusercontent.com/59698257/125425166-1a1c6ed3-3340-48c3-
 
 # Download For Android 
 https://github.com/AM-ash-OR-AM-I/Find_MyStuff/releases/download/v1.1.1/com.FindMyStuff-1.1.1-armeabi-v7a-debug.apk
+
 Releases: https://github.com/AM-ash-OR-AM-I/Find_MyStuff/releases
 # Installation for Windows
 * Install all files from requirements_for_win.txt using pip
