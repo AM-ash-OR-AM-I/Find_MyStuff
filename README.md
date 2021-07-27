@@ -12,7 +12,7 @@ This is an Android Application to find where you have kept your stuff.
 ### Demo
 https://youtu.be/l2OCr50ifIw
 ### Screenshots AND Video
-https://user-images.githubusercontent.com/59698257/125425166-1a1c6ed3-3340-48c3-99ea-6e38d12ad336.mp4
+https://user-images.githubusercontent.com/59698257/127135302-fc5e2887-53c3-4146-beff-8588cbe3ec23.mp4
 
 # Download For Android 
 https://github.com/AM-ash-OR-AM-I/Find_MyStuff/releases/download/v1.1.1/com.FindMyStuff-1.1.1-armeabi-v7a-debug.apk
