@@ -1,0 +1,59 @@
+<HomeScreen>:
+    name:'HomeScreen'
+    MDBoxLayout:
+        md_bg_color:app.theme_cls.bg_normal
+        spacing:'10dp'
+        orientation:'vertical'
+        Toolbar:
+            id: toolbar
+            title: "My Stuff"
+            elevation: 10
+            padding: dp(15),0
+            md_bg_color: app.theme_cls.bg_light
+            icon_color: app.theme_cls.primary_color if not app.dark_mode else [1,1,1,1]
+            right_action_items:
+                [["view-grid",lambda x: root.call(x), "Change grid size"],
+                ['format-font-size-increase',lambda x:root.open_dropdown(x),'Change Image Text Size'],
+                ['cog',lambda x: app.change_screen('setting')]]
+
+        ScrollView:
+            MDGridLayout:
+                id: grid_layout
+                cols: app.n_col
+                col_default_width:self.row_default_height
+                row_default_height: (self.width - self.cols*self.spacing[0]) / self.cols
+                row_force_default: True
+                adaptive_height: True
+                spacing: dp(3)
+
+    MDBoxLayout:
+        id: textbox
+        padding:(dp(25),0,dp(25),dp(40))
+        height:text_field.height
+        spacing:'10dp'
+        icon:'plus'
+
+        MovingTextField:
+            id: text_field
+            hint_text:'Search'
+            pos_hint:{'center_x':.5}
+            set_elevation:15
+            icon_left_action:['magnify']
+            icon_color: app.theme_cls.primary_color
+            height:dp(60)
+            inactive_color: [.7,.7,.7,.15]
+            thickness:dp(1)
+            active_color: self.theme_cls.primary_light
+            radius: '30dp'
+            size_hint_x:1
+            on_text:
+                root.find_image(self.text)
+        FloatingButton:
+            id: plus
+            icon: textbox.icon
+            pos_hint:{'center_x':0.5}
+            user_font_size:60
+            on_release:
+                app.InfoScreen.open_dialog() if root.active else ''
+
+

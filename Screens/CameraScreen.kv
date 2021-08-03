@@ -1,0 +1,79 @@
+<CameraScreen>:
+    name:'camera'
+    user_font_size: 80
+    canvas:
+        Color:
+            rgba: (0,0,0,1)
+        Rectangle:
+            size: self.size
+            pos:self.pos
+
+    XCamera:
+        id: xcamera
+        y : (Window.height-(self.resolution[0]*Window.width/self.resolution[1]))/2 if self.ratio==16/9 and not platform=='win' else (0,0)
+        on_picture_taken: Clock.schedule_once(app.InfoScreen.add_info_object,0.1)
+        canvas.before:
+            PushMatrix
+            Rotate:
+                angle: -90 if not platform=='win' else 0
+                origin: self.center
+            Scale:
+                x: self.ratio if not platform=='win' else 1
+                y: self.ratio if not platform=='win' else 1
+                origin: self.center
+        canvas.after:
+            PopMatrix
+    BoxLayout:
+        id: boxlayout
+        orientation:'vertical'
+        size:(dp(root.user_font_size),dp(root.user_font_size))
+        size_hint:None,None
+        pos_hint:{'right':1}
+        y: dp(20)
+
+
+        MDIconButton:
+            id: show_orient
+            icon: 'island'
+            user_font_size: root.user_font_size-30
+            theme_text_color:'Custom'
+            text_color:[1,1,1,1]
+            pos_hint:{'center_x':.5}
+            on_release:
+                root.landscape=True if not root.landscape else False
+
+
+        MDLabel:
+            id: label
+            text: 'landscape\nmode' if root.landscape else 'portrait\nmode'
+            font_size:'12dp'
+            halign:'center'
+            font_style:'Button'
+            theme_text_color:'Custom'
+            text_color:[1,1,1,1]
+
+    CustomFloatingButton:
+        id: shoot_button
+        icon:'camera'
+        pos_hint:{'center_x':0.5}
+        y: boxlayout.y
+        user_font_size: root.user_font_size
+        on_press:
+            self.shrink()
+            self.md_bg_color= app.darker(.85)
+        on_release:
+            self.reset()
+            self.md_bg_color=app.theme_cls.primary_color
+            xcamera.shoot(app.InfoScreen.filename)
+
+
+    MDIconButton:
+        id: choose_orient
+        icon: 'phone-rotate-portrait'
+        user_font_size: root.user_font_size
+        theme_text_color:'Custom'
+        text_color:[1,1,1,1]
+        y: boxlayout.y
+        pos_hint:{'left': 1}
+        on_release:
+            root.landscape=True if not root.landscape else False

@@ -1,0 +1,139 @@
+<CustomList@OneLineAvatarIconListItem>:
+    _no_ripple_effect: True
+
+<RightSwitch@IRightBodyTouch+MDSwitch>
+
+<AboutClass@BoxLayout>
+    orientation:'vertical'
+    MDLabel:
+        text:'Made by Ashutosh'
+        halign:'center'
+        font_size:'20sp'
+        theme_text_color:'Custom'
+        text_color: app.theme_cls.primary_color
+        font_name:'Poppins'
+    MDSeparator:
+    MDTextButton:
+        size_hint_y:.5
+        markup: True
+        font_size:'16sp'
+        text:f"[color=#6666ff][font=Icons][size={int(self.font_size)+10}] {md_icons['github']}[/font][/size]   GitHub Code[/color]"
+        pos_hint:{'center_x':.5,'center_y':1}
+        on_release:
+            app.SettingScreen.open_web(github=True)
+    MDSeparator:
+    MDTextButton:
+        size_hint_y:.5
+        markup: True
+        font_size:'16sp'
+        text:f"[color=#de6666][font=Icons][size={int(self.font_size)+10}] {md_icons['gmail']}[/font][/size]   Send email[/color]"
+        pos_hint:{'center_x':.5,'center_y':1}
+        on_release:
+            app.SettingScreen.open_web(email=True)
+
+
+<Setting>:
+    md_bg_color: app.theme_cls.bg_normal
+    name:'Setting'
+    FloatLayout:
+        DarkAnimation:
+            id: circle_mode
+            opacity:0
+            rad: 10
+            pos: mode_change.pos
+            parent_rad: mode_change.width/2
+            set_color: app.theme_cls.bg_normal
+            halign:'left'
+
+    StackLayout:
+        id:stack
+        spacing:'5dp'
+        Toolbar:
+            title:'Settings'
+            md_bg_color:[0,0,0,0]
+            padding:(dp(20),0,0,0)
+            icon_color: app.theme_cls.primary_color if not app.dark_mode else [1,1,1,1]
+            left_action_items:[['arrow-left',lambda x: app.back_button()]]
+
+
+        CustomList:
+            id: switch_item
+            text: 'Image name'
+            icon:'image-text'
+            theme_text_color: 'Custom'
+            text_color: app.theme_cls.primary_color if switch.active else [0.5,0.5,0.5,1]
+            on_release:
+                switch.active=True if not switch.active else False
+            bg_color: app.extra_light_color if switch.active and not self.disabled else (0,0,0,0)
+            RightSwitch:
+                id: switch
+                active: app.HomeScreen.show_text
+                width: dp(44)
+                on_active:app.HomeScreen.show_text=switch.active
+            IconLeftWidget:
+                id: image_text
+                icon: 'image-text'
+                theme_text_color:'Custom'
+                text_color:app.theme_cls.primary_color if switch.active else [0.5,0.5,0.5,1]
+                on_release:
+                    switch.active=True if not switch.active else False
+
+        CustomList:
+            id: dark_mode
+            text: 'Dark Mode'
+            theme_text_color: 'Custom'
+            text_color: [.9,.9,.9,1] if switch_dark.active else [0.5,0.5,0.5,.85]
+            on_release:
+                switch_dark.active=True if not switch_dark.active else False
+            RightSwitch:
+                id: switch_dark
+                active: app.dark_mode
+                width: dp(44)
+                on_active:app.dark_mode=switch_dark.active
+            IconLeftWidget:
+                id: mode_change
+                icon: 'weather-night'
+                theme_text_color: 'Custom'
+                text_color: [.9,.9,.9,1] if switch_dark.active else [0.5,0.5,0.5,.85]
+                on_release:
+                    switch_dark.active=True if not switch_dark.active else False
+
+        OneLineIconListItem:
+            theme_text_color:'Custom'
+            text_color:app.theme_cls.primary_color
+            text:'Theme'
+            on_release: root.open_theme()
+            IconLeftWidget:
+                icon: 'palette'
+                theme_text_color:'Custom'
+                text_color:app.theme_cls.primary_color
+                on_release: root.open_theme()
+        MDSeparator:
+        MDLabel:
+            id: _label
+            markup: True
+            text:'[b]Support'
+            size_hint_y: None
+            font_size:'20sp'
+            halign:'center'
+
+        OneLineIconListItem:
+            ripple_alpha:.1
+            text:'About app'
+            on_release:root.open_about()
+            IconLeftWidget:
+                icon: 'information-outline'
+                pos_hint:{'center_y':.5}
+                on_release:root.open_about()
+        OneLineIconListItem:
+            ripple_alpha:.1
+            text:'Watch Demo'
+            theme_text_color:'Custom'
+            text_color:[1,.3,.3,.9]
+            on_release:
+                root.open_web(youtube=True)
+            IconLeftWidget:
+                icon: 'youtube'
+                pos_hint:{'center_y':.5}
+                theme_text_color:'Custom'
+                text_color:[1,.3,.3,1]

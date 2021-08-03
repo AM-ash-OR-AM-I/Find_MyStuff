@@ -1,0 +1,33 @@
+#: import AKCircularProgress Modules.progresswidget.AKCircularProgress
+#: import get_color_from_hex kivy.properties.get_color_from_hex
+#: import colors kivymd.color_definitions.colors
+#: import platform kivy.utils.platform
+#: import window kivy.core.window.Window
+#: import XCamera kivy_garden.xcamera.XCamera
+#: import Clock kivy.clock.Clock
+#: import md_icons kivymd.icon_definitions.md_icons
+#: import AKSpinnerDoubleBounce Modules.spinners.AKSpinnerDoubleBounce
+#: import CardTextField Modules.CustomCard.CardTextField
+#: import Toolbar Modules.Toolbar
+#: import * classes
+
+<StretchImage@Image>
+	canvas:
+        Color:
+            rgb: (1, 1, 1)
+        Rectangle:
+            texture: self.texture
+            size: self.parent.size[0],1/self.image_ratio*self.parent.size[0]
+            pos: self.x,(-1/self.image_ratio*self.parent.width+self.height)/2
+<StartScreen>
+    name:'Start'
+    StretchImage:
+        source: 'Data/PreSplash_BLUE.png'
+        
+    AKCircularProgress:
+        id: progress_percent
+        pos_hint: {"center_x": .5, "center_y": .1}
+        size_hint: None, None
+        size: dp(100), dp(100)
+        start_deg: -120
+        end_deg: 120

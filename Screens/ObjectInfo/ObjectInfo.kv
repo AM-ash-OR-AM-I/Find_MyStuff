@@ -1,0 +1,115 @@
+<ObjectInfo>:
+    name:'ObjectInfo'
+	md_bg_color: app.theme_cls.bg_normal
+	card_height: 60
+	inactive_color: [.5,.5,.5,.2]
+	active_color: app.theme_cls.primary_light
+	_radius: 25
+    BoxLayout:
+        orientation:'vertical'
+        padding:(0,0,0,dp(20))
+        spacing:"10dp"
+        Toolbar:
+            title: 'Object Info'
+            md_bg_color:[0,0,0,0]
+            padding:(dp(20),0,0,0)
+            icon_color: app.theme_cls.primary_color if not app.dark_mode else [1,1,1,1]
+            left_action_items:[['arrow-left',lambda x: app.back_button()]]
+        BoxLayout:
+            orientation:'vertical'
+            padding:(dp(20),0,dp(20),0)
+            spacing:"15dp"
+
+            CardTextField:
+                id: object
+                pos_hint:{'center_x':.5,'center_y':.5}
+                size_hint_x: 1
+                hint_text:'Object'
+                font_name:'Poppins'
+                set_elevation: 0
+                icon_color: app.theme_cls.primary_color
+                height:dp(root.card_height)
+                icon_right_action: ['microphone',lambda x: root.open_dialog()]
+                inactive_color: root.inactive_color
+                active_color: root.active_color
+                thickness:dp(1)
+                radius: dp(root._radius)
+
+            CardTextField:
+                id: place
+                pos_hint:{'center_x':.5,'center_y':.5}
+                size_hint_x: 1
+                hint_text:'Place Details'
+                set_elevation:0
+                md_bg_color: app.theme_cls.bg_light
+                active_color: root.active_color
+                icon_color: app.theme_cls.primary_color
+                height:dp(root.card_height)
+                inactive_color: root.inactive_color
+                thickness:dp(1)
+                radius: dp(root._radius)
+
+
+            RelativeLayout:
+                id: relative
+                MDRoundFlatIconButton:
+                    id: camera_button
+                    center: im.center
+                    text:'Take Picture'
+                    icon:'camera-plus'
+                    disabled: False if object.text!='' and place.text!='' else True
+                    on_release:
+                        app.InfoScreen.save()
+
+                FitImage:
+                    id: im
+                    radius: [dp(root._radius),dp(root._radius),dp(root._radius)]
+
+                AKSpinnerDoubleBounce:
+                    id: circle_bounce
+                    spinner_size: dp(30)
+                    center: im.center
+                    active: False
+
+
+            FloatingButton:
+                id: check
+                icon:'check'
+                user_font_size:60
+                pos_hint:{'right':1}
+                disabled:True if im.source=='' or im.opacity==0 else False
+                on_release:
+                    app.HomeScreen.change_home=True
+                    app.HomeScreen.update_info(object=object.text, place=place.text)
+                    app.back_button(home_screen=True)
+
+
+<VoiceRecognizer>:
+    id: Record_dialog
+    orientation: "vertical"
+    size_hint_y: None
+    height: "220dp"
+    FloatingButton:
+        id: microphone
+        icon: 'microphone'
+        pos_hint:{'center_x':0.5}
+        user_font_size:100
+        md_bg_color: [0.5,0.5,0.5,1]
+        on_release:
+            app.InfoScreen.start_listening() if not app.InfoScreen.listening else None
+
+        RelativeLayout:
+            MicAnimation:
+                id: ellipse
+                opacity: 0
+                set_color: app.theme_cls.primary_color
+                rad: 80
+                widget_pos: self.parent.size[0]
+                halign:'left'
+    MDLabel:
+        id: instant
+        size_hint_y:0.2
+        halign:'center'
+        text:'Waiting to Start..'
+        font_size:'15sp'
+        font_name:'Roboto-Bold'
