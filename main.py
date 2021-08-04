@@ -34,6 +34,9 @@ SYSTEM_DARK_MODE = dark_mode() if ANDROID else False
 
 
 class FindStuff(MDApp):
+    setting_variables = ['self.theme_cls.primary_palette', 'self.text_size', 'self.optimise',
+                         'self.avail_preview_size', 'self.set_preview_index', 'self.show_optimise',
+                         'self.dark_mode', 'self.grid_cols', 'self.show_text']
     show_optimise = True
     dark_mode = BooleanProperty(False)
     circle_color = ColorProperty([0, 0, 0, .1])
@@ -42,13 +45,13 @@ class FindStuff(MDApp):
     InfoDict = {}
     text_list = []
     avail_preview_size = []
-    setting_variables = ['self.theme_cls.primary_palette', 'self.text_size', 'self.optimise',
-                         'self.avail_preview_size', 'self.set_preview_index', 'self.show_optimise']
     preview_size = None
     optimise = False
     text_size = 15
     light_alpha = .6
+    grid_cols = 2
     set_preview_index = 2
+    show_text = True
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -57,12 +60,13 @@ class FindStuff(MDApp):
                 string = f.read()
             self.InfoDict = eval(string)
             for var in self.InfoDict.keys():
-                exec(f"{var}=self.InfoDict['{var}']", {'self': self})
+                if var!='self.dark_mode':
+                    exec(f"{var}=self.InfoDict['{var}']", {'self': self})
 
         else:
             self.theme_cls.primary_palette = 'Purple'
 
-        ##print(f'{self.InfoDict = }')
+        print(f'{self.InfoDict = }')
         self.extra_light_color = self.generate_light_color(0.1)
         self.light_color = self.generate_light_color(self.light_alpha)
         self.dark_hex = colors['Dark']['Background']
@@ -87,7 +91,7 @@ class FindStuff(MDApp):
         def initialise_stuff(*args):
             self.start_call = True
             if self.InfoDict != {}:
-                self.dark_mode = self.InfoDict['DARK_MODE'] if not SYSTEM_DARK_MODE else SYSTEM_DARK_MODE
+                self.dark_mode = self.InfoDict['self.dark_mode'] if not SYSTEM_DARK_MODE else SYSTEM_DARK_MODE
                 if ANDROID:
                     if not self.dark_mode:
                         statusbar(theme='white')
@@ -117,7 +121,7 @@ class FindStuff(MDApp):
                                                        lambda x: self.reduce_preview_size()],
                                                    right_action=[
                                                        "Don't show again",
-                                                       lambda x: exec("self.InfoDict['SHOW_OPTIMISE']=False",
+                                                       lambda x: exec("self.optimise = False",
                                                                       {'self': self})],
                                                    over_widget=widget)
                             self.HomeScreen.add_widget(self.banner)
@@ -160,7 +164,7 @@ class FindStuff(MDApp):
 
         self.sm = ScreenManager()
         self.theme_cls.theme_style = 'Dark' if (self.InfoDict != {} and self.InfoDict[
-            'self.theme_cls.theme_style']) or SYSTEM_DARK_MODE else 'Light'
+            'self.dark_mode']) or SYSTEM_DARK_MODE else 'Light'
         print(f'{self.theme_cls.theme_style = }')
         self.StartScreen = StartScreen()
         self.sm.add_widget(self.StartScreen)

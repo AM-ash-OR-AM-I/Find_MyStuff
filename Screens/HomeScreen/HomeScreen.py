@@ -33,10 +33,6 @@ class HomeScreen(MDScreen, ThemableBehavior):
     drop, drop2, NoImage, prev_state = None, None, None, None
     index, prev_scale, n_col = 0, 1, 2
     
-    def __init__(self,**kwargs):
-        super().__init__(**kwargs)
-        self.text_size = app.text_size
-    
     def on_enter(self, *args):
         if self.first_use and FIRST_TIME:
             self.tap_target()
@@ -89,7 +85,7 @@ class HomeScreen(MDScreen, ThemableBehavior):
             toolbar.title = self.prev_title
 
     def on_image_exists(self, instance, exists):
-        setting = self.SettingScreen
+        setting = app.SettingScreen
         right_items = self.ids.toolbar.right_action_items
         # #print(f'{setting.ids.switch_item = }\n{exists = }')
 
@@ -118,7 +114,7 @@ class HomeScreen(MDScreen, ThemableBehavior):
                 right_items.insert(0, ["view-grid", lambda x: self.call(x), "Change grid size"])
 
     def on_show_text(self, instance, show_text):
-
+        app.show_text = show_text
         right_list = self.ids.toolbar.right_action_items
         if not show_text:
             if len(right_list) == 3:
@@ -163,7 +159,7 @@ class HomeScreen(MDScreen, ThemableBehavior):
             self.image_exists = True
         self.grid.add_widget(
             MyImage(source='%s.png' % app.InfoScreen.ids.object.text,
-                    text=f'[font=Poppins][size={int(dp(self.text_size))}]{app.InfoScreen.ids.object.text}[/size][/font]',
+                    text=f'[font=Poppins][size={int(dp(app.text_size))}]{app.InfoScreen.ids.object.text}[/size][/font]',
                     tile_text_color=self.theme_cls.accent_color if self.show_text else [0, 0, 0, 0],
                     box_color=[0, 0, 0, 0.3] if self.show_text else [0, 0, 0, 0],
                     index=self.index))
@@ -245,7 +241,7 @@ class HomeScreen(MDScreen, ThemableBehavior):
                             for source in di:
                                 self.grid.add_widget(
                                     MyImage(source=f'{source}.png',
-                                            text=f'[font=Poppins][size={int(dp(self.text_size))}]{source}[/size][/font]',
+                                            text=f'[font=Poppins][size={int(dp(app.text_size))}]{source}[/size][/font]',
                                             tile_text_color=self.theme_cls.accent_color, index=self.index))
                                 self.source_list.append(source)
                             self.index += 1
@@ -254,8 +250,8 @@ class HomeScreen(MDScreen, ThemableBehavior):
 
         else:
             self.image_exists = False
-        if 'SHOW_TEXT' in app.InfoDict:
-            self.show_text = app.InfoDict['SHOW_TEXT']
+        if 'self.show_text' in app.InfoDict:
+            self.show_text = app.InfoDict['self.show_text']
             print(self.show_text)
 
     def change_grid(self, x: int()):
@@ -264,31 +260,32 @@ class HomeScreen(MDScreen, ThemableBehavior):
         if image_list[0].tile_text_color != [0, 0, 0, 0]:
             # #print('Changing text size')
             prev_grid = self.grid.cols
-            old_text_size = self.text_size
-            self.text_size = old_text_size * prev_grid / new_grid
-            # #print(f'{self.text_size = } , {old_text_size = }')
+            old_text_size = app.text_size
+            app.text_size = old_text_size * prev_grid / new_grid
+            # #print(f'{app.text_size = } , {old_text_size = }')
 
             for im in image_list:
                 if im.tile_text_color != [0, 0, 0, 0]:
                     text = im.text
-                    text = text.replace('%d' % dp(old_text_size), '%d' % dp(self.text_size))
+                    text = text.replace('%d' % dp(old_text_size), '%d' % dp(app.text_size))
                     im.text = text
                 else:
                     break
         self.grid.cols = new_grid
+        app.grid_cols = new_grid
 
     def change_scale(self, scaling):
         image_list = self.grid.children
         if image_list[0].text != '':
             # #print('Changing text size')
-            old_text_size = self.text_size
+            old_text_size = app.text_size
             if self.prev_scale != scaling:
-                self.text_size = self.text_size * scaling / self.prev_scale
-                # #print(f'{self.text_size = }')
+                app.text_size = app.text_size * scaling / self.prev_scale
+                # #print(f'{app.text_size = }')
                 for im in image_list:
                     if im.text != '':
                         text = im.text
-                        text = text.replace('%d' % dp(old_text_size), '%d' % dp(self.text_size))
+                        text = text.replace('%d' % dp(old_text_size), '%d' % dp(app.text_size))
                         im.text = text
                     else:
                         break
@@ -357,7 +354,7 @@ class HomeScreen(MDScreen, ThemableBehavior):
 
                     self.grid.add_widget(
                         MyImage(source=f'{i}.png',
-                                text=f'[font=Poppins][size={int(dp(self.text_size))}]{i}[/size][/font]',
+                                text=f'[font=Poppins][size={int(dp(app.text_size))}]{i}[/size][/font]',
                                 tile_text_color=tile_text_color, box_color=box_color, index=self.index))
                     self.source_list.append(i)
 
