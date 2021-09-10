@@ -3,6 +3,6 @@
 /Data/object_dict
 /Screens/HomeScreen/HomeScreen1.py
 /Screens/ObjectInfo/ObjectInfo1.py
-.idea
+/.idea
 /*.png
-
+__pycache__
