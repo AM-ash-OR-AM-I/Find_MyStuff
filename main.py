@@ -331,5 +331,5 @@ class CameraScreen(MDScreen):
                 with widget.canvas.after:
                     PopMatrix()
 
-print('Changes Made')
+
 FindStuff().run()
