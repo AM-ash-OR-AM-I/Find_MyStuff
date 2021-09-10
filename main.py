@@ -236,7 +236,8 @@ class FindStuff(MDApp):
             else:
                 self.exit_dialog = MDDialog(title='Exit', text='Do you want to exit?',
                                             buttons=[MDRaisedButton(text='YES', on_release=check_bg_process),
-                                                     MDFlatButton(text='NO')])
+                                                     MDFlatButton(text='NO',
+                                                                  on_release=lambda x: self.exit_dialog.dismiss())])
                 self.exit_dialog.open()
                 self.screen_history = ['HomeScreen']
         return True
