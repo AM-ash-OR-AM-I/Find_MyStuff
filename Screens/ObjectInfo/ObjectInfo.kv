@@ -1,0 +1,105 @@
+#: set card_height 80
+#: set inactive_color [.5,.5,.5,.2]
+#: set _radius 25
+<ObjectInfo>:
+    name:'ObjectInfo'
+	md_bg_color: app.theme_cls.bg_normal
+	active_color: app.theme_cls.primary_light
+    BoxLayout:
+        orientation:'vertical'
+        padding:(0,0,0,dp(20))
+        spacing:"15dp"
+        Toolbar:
+            title: 'Save Info' if im.opacity and im.source else 'Add Object'
+            md_bg_color:[0,0,0,0]
+            padding:(dp(25),dp(5),dp(20),dp(5))
+            icon_color: app.theme_cls.primary_color if not app.dark_mode else [1,1,1,1]
+            left_action_items:[['check' if im.opacity and im.source else 'arrow-left',lambda x: exec('app.back_button(home_screen=True); app.HomeScreen.change_home = True')]]
+
+        BoxLayout:
+            orientation:'vertical'
+            padding:(dp(20),0,dp(20),0)
+            spacing:"15dp"
+
+            CardTextField:
+                id: object
+                pos_hint:{'center_x':.5,'center_y':.5}
+                size_hint_x: 1
+                label_text:'Object'
+                font_name:'Poppins'
+                set_elevation: 0
+                icon_color: app.theme_cls.primary_color
+                height:dp(card_height)
+                icon_right_action: ['microphone',lambda x: root.open_dialog()]
+                inactive_color: inactive_color
+                active_color: root.active_color
+                thickness:dp(1)
+                radius: dp(_radius)
+
+            CardTextField:
+                id: place
+                pos_hint:{'center_x':.5,'center_y':.5}
+                size_hint_x: 1
+                label_text:'Place Details'
+                set_elevation:0
+                md_bg_color: app.theme_cls.bg_light
+                active_color: root.active_color
+                height:dp(card_height)
+                inactive_color: inactive_color
+                thickness:dp(1)
+                radius: dp(_radius)
+
+
+            RelativeLayout:
+                id: relative
+                FitImage:
+                    id: im
+                    radius: [dp(_radius),dp(_radius),dp(_radius)]
+                CustomFloatingButton:
+                    id: camera_button
+					user_font_size:75
+                    center: (im.right-self.width/2-dp(6),im.top-self.height/2-dp(6)) if object.text!='' and im.opacity and im.source else (im.center[0],im.center[1]*1.4)
+					disabled: True if object.text=='' else False
+                    icon:'camera-plus'
+                    on_release:
+                        app.InfoScreen.save()
+
+                MDLabel:
+                    opacity :0 if im.opacity or not object.text else 0.5
+                    text:'Tap to add Picture'
+                    halign:'center'
+                    font_name:'Poppins'
+                    size_hint_y: None
+                    font_size:'25sp'
+                    theme_text_color:'Secondary'
+                    center: im.center
+
+<VoiceRecognizer@MDBoxLayout>:
+    id: Record_dialog
+    orientation: "vertical"
+    size_hint_y: None
+    height: "220dp"
+    FloatingButton:
+        id: microphone
+        icon: 'microphone'
+        pos_hint:{'center_x':0.5}
+        user_font_size:100
+        md_bg_color: [0.5,0.5,0.5,1]
+        on_release:
+            app.InfoScreen.start_listening() if not app.InfoScreen.listening else None
+
+        RelativeLayout:
+            MicAnimation:
+                id: ellipse
+                opacity: 0
+                set_color: app.theme_cls.primary_color
+                rad: 80
+                widget_pos: self.parent.size[0]
+                halign:'left'
+    MDLabel:
+        id: instant
+        size_hint_y:0.2
+        halign:'center'
+        text:'Waiting to Start..'
+        font_size:'15sp'
+        font_name:'Roboto-Bold'
