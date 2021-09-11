@@ -292,7 +292,7 @@ class Setting(MDScreen):
             webbrowser.open('https://github.com/AM-ash-OR-AM-I/Find_MyStuff')
             toast('Star my repository if you like it :)')
         elif youtube:
-            webbrowser.open('https://youtu.be/l2OCr50ifIw')
+            webbrowser.open('https://www.youtube.com/watch?v=lVz2nCDUoEI&list=PLUdItSprD91zcFG7__KR_0CGsDbCmmbtl')
         elif email:
             webbrowser.open('https://mail.google.com/mail/u/0/#inbox?compose=new')
             Clipboard.copy('ashutoshmaha2909@gmail.com')
