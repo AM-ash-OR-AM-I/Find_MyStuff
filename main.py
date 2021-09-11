@@ -10,8 +10,6 @@ from kivy.lang import Builder
 from kivy.properties import BooleanProperty, NumericProperty, ColorProperty
 from kivy.uix.screenmanager import CardTransition, ScreenManager, NoTransition
 from kivy.utils import platform
-from Modules.dialogs import AKAlertDialog
-from Modules.picker import MDThemePicker
 from kivymd.app import MDApp
 from kivymd.color_definitions import colors
 from kivymd.icon_definitions import md_icons
@@ -20,6 +18,8 @@ from kivymd.uix.banner import MDBanner
 from kivymd.uix.button import MDFlatButton, MDRaisedButton
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.screen import MDScreen
+from Modules.dialogs import AKAlertDialog
+from Modules.picker import MDThemePicker
 
 if platform == 'win':
     WIN, ANDROID = True, False
