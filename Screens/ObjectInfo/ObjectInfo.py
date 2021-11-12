@@ -23,17 +23,17 @@ PREPOSITIONS = ['about', 'above', 'across', 'after', 'against', 'among', 'around
                 'minus', 'next', 'onto', 'opposite', 'outside', 'past', 'per', 'plus', 'regarding', 'round', 'save',
                 'since', 'than', 'till', 'underneath', 'unlike', 'until', 'upon', 'versus', 'via', 'within', 'without']
 
-if platform == 'win':
-    import speech_recognition as sr
 
-    WIN = True
-    ANDROID = False
-
-elif platform == 'android':
+if platform == 'android':
     from Speechrecognizer import stt
 
     ANDROID = True
     WIN = False
+else:
+    import speech_recognition as sr
+
+    WIN = True
+    ANDROID = False
 
 
 class CustomMDSpinner(ModalView):

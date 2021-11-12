@@ -21,18 +21,18 @@ from kivymd.uix.screen import MDScreen
 from Modules.dialogs import AKAlertDialog
 from Modules.picker import MDThemePicker
 
-if platform == 'win':
-    WIN, ANDROID = True, False
-    device_x, device_y = (1080, 2240)
-    device_dpi = 400
-    desktop_dpi = 157
-    scale_factor = desktop_dpi / device_dpi
-    Window.size = (scale_factor * device_x, scale_factor * device_y)
-
-elif platform == 'android':
+if platform == 'android':
     ANDROID, WIN = True, False
     from Modules.JavaAPI import statusbar, dark_mode
     from android.permissions import request_permissions, Permission
+
+else:
+    WIN, ANDROID = True, False
+    device_x, device_y = (1080, 2240)
+    device_dpi = 300
+    desktop_dpi = 157
+    scale_factor = desktop_dpi / device_dpi
+    Window.size = (scale_factor * device_x, scale_factor * device_y)
 
 SYSTEM_DARK_MODE = dark_mode() if ANDROID else False
 
