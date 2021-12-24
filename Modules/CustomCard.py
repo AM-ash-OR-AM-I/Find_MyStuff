@@ -31,7 +31,7 @@ Builder.load_string('''
                     (self.x,self.y,self.width,self.height,self.radius[0])
 	MDBoxLayout:
 		orientation:'vertical'
-		padding:(dp(20),0,0,dp(6)) if not root.icon_left_action or root.label_text else (dp(6),0,0,0)
+		padding:(dp(20),0,0,dp(6)) if root.label_text else (dp(20),0,0,0)if root.icon_left_action is None else (dp(6),0,0,0)
 		MDLabel:
 		    id: lbl
 		    text: root.label_text
@@ -153,7 +153,7 @@ Screen:
 		thickness: 1.5
 		active_color:app.theme_cls.primary_light
         icon_color: app.theme_cls.primary_light
-		icon_left_action:['magnify',lambda x: print('Call any function you want like this.')]
+		# icon_left_action:['magnify',lambda x: print('Call any function you want like this.')]
         icon_right_action:['microphone']
         on_text:
             print(self.text)
