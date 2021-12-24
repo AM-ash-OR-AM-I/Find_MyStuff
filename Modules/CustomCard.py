@@ -149,11 +149,11 @@ Screen:
         pos_hint:{'center_x':.5,'center_y':.5}
         radius:'25dp'
 		hint_text:''
-		label_text:'Object'
+		# label_text:'Object'
 		thickness: 1.5
 		active_color:app.theme_cls.primary_light
         icon_color: app.theme_cls.primary_light
-		# icon_left_action:['magnify',lambda x: print('Call any function you want like this.')]
+		icon_left_action:['magnify',lambda x: print('Call any function you want like this.')]
         icon_right_action:['microphone']
         on_text:
             print(self.text)
