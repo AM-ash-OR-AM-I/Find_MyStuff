@@ -281,10 +281,10 @@ class Setting(MDScreen):
 
     def open_about(self):
         if self.content is None:
-            content = Factory.AboutClass()
+            self.content = Factory.AboutClass()
             self.about_dialog = AKAlertDialog(header_icon='heart-circle')
             self.about_dialog.size_portrait = ['300dp', '380dp']
-            self.about_dialog.content_cls = content
+            self.about_dialog.content_cls = self.content
         self.about_dialog.open()
 
     def open_web(self, github=False, youtube=False, email=False):
