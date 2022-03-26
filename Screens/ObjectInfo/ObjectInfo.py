@@ -81,7 +81,7 @@ class ObjectInfo(MDScreen):
 
     def get_list(self, list_of_dictionaries, option):
         new_list = []
-        print(list_of_dictionaries)
+
         if option == 'object':
             for d in list_of_dictionaries:
                 for object in d.keys():
@@ -210,7 +210,12 @@ class ObjectInfo(MDScreen):
             app.HomeScreen.add_picture = True
         app.back_button()
 
-    def animate_it(self, widget, *args) -> "Used to animate microphone.":
+    def animate_it(self, widget, *args):
+
+        """
+        Used to animate microphone.
+        """
+
         widget.opacity = 0.15
         self.content_cls.ids.instant.text = 'Listening..'
         self.widget = widget
